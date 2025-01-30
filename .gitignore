@@ -1,3 +1,4 @@
 node_modules
 build
 package-lock.json   // this not uploaded on github
+.env
