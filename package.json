@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "nodemon build/server.js",
-    "dev": "test -d build || npm run build && nodemon --watch build build/index.js"
+    "start": "build/server.js",
+    "dev": "npm run start",
+    "clean": "npx rimraf ./build",
+    "server": "tsc-watch --outDir ./build --onSuccess \"npm run start -- --mode=http\" --onFailure \"echo ERROR! Compilation Failed\"",
+    "lint": "eslint .",
+    "format": "prettier --write \"{src,apps,libs,test}/**/*.ts\""
   },
   "keywords": [],
   "author": "",
@@ -17,6 +21,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "tsc-watch": "^6.2.1"
   }
 }
