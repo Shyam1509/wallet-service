@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node build/index.js", 
+    "start": "node build/index.js",
     "dev": "npm run start",
     "clean": "npx rimraf ./build",
     "server": "tsc-watch --outDir ./build --onSuccess \"npm run start -- --mode=http\" --onFailure \"echo ERROR! Compilation Failed\"",
@@ -24,6 +24,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.9.5",
     "nodemon": "^3.1.9",
     "tsc-watch": "^6.2.1"
   }
