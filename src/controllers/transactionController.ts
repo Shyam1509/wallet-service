@@ -3,19 +3,15 @@ import { v4 as uuidv4 } from "uuid";
 
 const createTransaction = async (req, res, next) => {
   try {
-    const {
-      user_id,
-      wallet_id,
-      ledger_id,
-      type,
-      amount,
-      status,
-      description,
-    } = req.body;
+    const { user_id, wallet_id, ledger_id, type, amount, status, description } =
+      req.body;
 
-    console.log("Received data:", req.body);    
+    const transaction_id = await uuidv4();
+
+    console.log("Received data:", req.body);
 
     const newTransaction = new Transaction({
+      transaction_id,
       user_id,
       wallet_id,
       ledger_id,
@@ -29,8 +25,10 @@ const createTransaction = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ message: "Transaction entry created successfully", transaction: newTransaction });
-
+      .json({
+        message: "Transaction entry created successfully",
+        transaction: newTransaction,
+      });
   } catch (error) {
     console.error("Error creating ledger entry:", error);
     res

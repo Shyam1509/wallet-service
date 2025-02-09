@@ -1,23 +1,23 @@
 import Ledger from "../model/ledgerModel";
 import Wallet from "../model/walletModel";
+import { v4 as uuidv4 } from "uuid";
+
 
 const createLedger = async (req, res, next) => {
   try {
-    const { user_id, transaction_id, type, amount, status, description } = req.body;
+    const { wallet_id, user_id, transaction_id, type, amount, status, description } = req.body;
 
-    console.log("Received data:", req.body);
-
-    if (!user_id || !transaction_id || !amount) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
-
+    
     // Check if wallet exists
     let wallet = await Wallet.findOne({ user_id });
-
+    
     if (!wallet) {
       console.log("No wallet found, creating a new wallet for user:", user_id);
+      
+      // const wallet_id = await uuidv4();
 
       wallet = new Wallet({
+        wallet_id,
         user_id,
         balance: 0,
         available_balance: 0,
@@ -27,11 +27,12 @@ const createLedger = async (req, res, next) => {
       await wallet.save();
       console.log("Wallet created successfully.");
     }
-
-    // Now create the ledger entry (even if the wallet was just created)
-    console.log("Creating ledger entry...");
+    
+    const ledger_id = await uuidv4();
 
     const newEntry = new Ledger({
+      ledger_id,
+      wallet_id,
       user_id,
       transaction_id,
       type,
