@@ -1,20 +1,21 @@
 import mongoose, { Schema } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 
-const ledgerSchema = new Schema(
+const transactionSchema = new Schema(
   {
-    ledger_id: { type: String, default: uuidv4, unique: true },
+    transaction_id: { type: String, default: uuidv4, unique: true },
     user_id: { type: String, required: true },
-    transaction_id: { type: String, default: null },
+    wallet_id: { type: String, default: null },
+    ledger_id: { type: String, default: null },
     type: {
       type: String,
-      enum: ["initial", "bet", "deposit", "withdrawal", "winning"],
+      enum: ["credit", "debit"],
     },
     amount: { type: Number, required: true },
     status: {
       type: String,
       enum: ["pending", "completed", "failed"],
-      default: "completed",
+      default: "pending"    
     },
     description: { type: String, default: "" },
   },
@@ -23,5 +24,5 @@ const ledgerSchema = new Schema(
   }
 );
 
-const ledgerModel = mongoose.model("Ledger", ledgerSchema);
-export default ledgerModel;
+const transactionModel = mongoose.model("Transaction", transactionSchema);
+export default transactionModel;

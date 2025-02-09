@@ -52,6 +52,6 @@ const createLedger = async (req, res, next) => {
     console.error("Error Stack:", error);
     res.status(500).json({ message: "Failed to create a ledger entry", error: error });
   }
-};
+};        
 
 export default createLedger;

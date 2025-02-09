@@ -3,12 +3,15 @@ dotenv.config()
 import express from 'express';
 import { dbConnection } from './src/mognodb/db';
 import ledgerRoutes from './src/routes/ledger/post.ledger';
+import transactionRoutes from './src/routes/transaction/post.transaction';
 const PORT = process.env.PORT || 3000
 const app  = express()
 
 app.use(express.json());
 
 app.use('/ledger', ledgerRoutes);
+app.use('/transaction', transactionRoutes);
+
 
 (async () => {
    try {

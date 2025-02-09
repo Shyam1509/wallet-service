@@ -8,10 +8,12 @@ dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const db_1 = require("./src/mognodb/db");
 const post_ledger_1 = __importDefault(require("./src/routes/ledger/post.ledger"));
+const post_transaction_1 = __importDefault(require("./src/routes/transaction/post.transaction"));
 const PORT = process.env.PORT || 3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use('/ledger', post_ledger_1.default);
+app.use('/transaction', post_transaction_1.default);
 (async () => {
     try {
         if ((await (0, db_1.dbConnection)())) {
